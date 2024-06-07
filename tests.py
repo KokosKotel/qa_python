@@ -4,7 +4,7 @@ from main import BooksCollector
 
 class TestBooksCollector:
 
-    #Проверяем добавление одной книги с разными названиями
+    #Проверяем добавление книг с разными названиями
     @pytest.mark.parametrize('book_name, result', [
         ('Марсианин', True),
         ('', False),
