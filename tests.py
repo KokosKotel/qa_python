@@ -37,9 +37,9 @@ class TestBooksCollector:
             ('Ходячие мертвецы', 'Фантастика'),
             ('Детективное агенство Дирка Джентли', 'Детектив')
         ]
-        for book_name, book_genre in book_and_genre:
+        for book_name, genre in book_and_genre:
             collector.add_new_book(book_name)
-            collector.set_book_genre(book_name, book_genre)
+            collector.set_book_genre(book_name, genre)
 
         expected_book = ['Доктор Кто', 'Ходячие мертвецы']
         fantasy = collector.get_books_with_specific_genre('Фантастика')
@@ -52,9 +52,9 @@ class TestBooksCollector:
             ('Метро 2033', 'Фантастика'),
             ('Откровение людоеда', 'Детектив')
         ]
-        for book_name, book_genre in book_and_genre:
+        for book_name, genre in book_and_genre:
             collector.add_new_book(book_name)
-            collector.set_book_genre(book_name, book_genre)
+            collector.set_book_genre(book_name, genre)
 
         expected_book = ['Метро 2033']
         children = collector.get_books_for_children()
