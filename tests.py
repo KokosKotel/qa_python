@@ -15,19 +15,31 @@ class TestBooksCollector:
         collector.add_new_book(book_name)
         assert (book_name in collector.get_books_genre()) == result
 
-    #Проверяем добавление разного жанра книг
-    @pytest.mark.parametrize('book_name, genre, result, expected_genre', [
-        ('Автостопом по галактике', 'Фантастика', True, 'Фантастика'),
-        ('Несуществующая книга', 'Ужасы', False, None),
-        ('50 оттенков серого', 'Романтика', True, '')
-    ])
-    def test_set_book_genre_with_different_genre(self, book_name, genre, result, expected_genre):
+    #Проверяем добавление жанра книг для существующей книги
+    def test_set_genre_for_existing_book(self):
         collector = BooksCollector()
-        if result:
-            collector.add_new_book(book_name)
+        book_name = 'Автостопом по галактике'
+        genre = 'Фантастика'
+        collector.add_new_book(book_name)
         collector.set_book_genre(book_name, genre)
-        actual_genre = collector.get_book_genre(book_name)
-        assert actual_genre == expected_genre
+        assert collector.get_book_genre(book_name) == genre
+
+    #Проверяем добавление жанра для несуществующей книги
+    def test_set_genre_for_nonexistent_book(self):
+        collector = BooksCollector()
+        book_name = 'Несуществующая книга'
+        genre = 'Ужасы'
+        collector.set_book_genre(book_name, genre)
+        assert collector.get_book_genre(book_name) is None
+
+    #Проверяем добавление жанра, которого нет в БД приложения
+    def test_set_nonexistent_genre_for_existing_book(self):
+        collector = BooksCollector()
+        book_name = '50 оттенков серого'
+        genre = 'Романтика'
+        collector.add_new_book(book_name)
+        collector.set_book_genre(book_name, genre)
+        assert collector.get_book_genre(book_name) == ''
 
     #Проверяем получение списка книг по выбранному жанру
     def test_get_books_with_specific_genre(self):
